@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Registration Form</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background: gray;
+            padding: 30px;
+        }
+        .container{
+            background: white;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+            
+        }
+        h2{
+            text-align: center;
+        }
+        label{
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        input ,select{
+            width: 100%;
+            padding: 10px;
+            border: 1px;
+            border-radius: 5px;
+            margin-top: 5px;
+
+        }
+        .btn{
+            background: blue;
+            color: white;
+            padding: 12px;
+            margin-top: 20px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover{
+            background: blue;
+        }
+        #analytics{
+            margin-top: 20px;
+            padding: 15px;
+            background: gray;
+            border-radius: 6px;
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h2>Event Registration</h2>
+
+        <form id="regForm">
+            <label >Full Name (Required) </label>
+            <input type="text" id="FullName" />
+            <small id="nameError" style="color: rd; display: none;"></small>
+
+            <label>Professional Email (Required)</label>
+            <input type="text"  id="Email"/>
+            <small id="emailError" style="color: red; display: none;"></small>
+
+            <label>Company/Institution (Optional) </label>
+            <input type="text"  id="Company">
+
+            <label>Attendance Type (Required)</label>
+            <select id="attendance">
+                <option value="">-- Select --</option>
+                <option value="Virtual">Virtual</option>
+                <option value="In-Person">In-Person</option>
+            </select>
+            <small id="attendanceError" style="color: red; display: none;"></small>
+
+            <button type="button" class="btn" onclick="submitForm()">Register</button>
+
+        </form>
+        <button class="btn" id="toggleBtn" onclick="toggleAnalytics()">Show Event Analytics</button>
+
+        <div id="analytics">
+            <h3>Event Analytics</h3>
+            <p>Total Registrants: <span id="totalCount">0</span></p>
+            <p>Virtual Attendance: <span id="virtualCount">0</span></p>
+            <p>In-Person Attendance: <span id="inpersonCount">0</span></p>
+        </div>
+
+        <div>
+            <script>
+                let attenders = [];
+
+                function submitForm()
+                {
+                    const Name=Document.getElementById("FullName").value.trim();
+                    const Email=Document.getElementById("Email").value.trim();
+                    const Company=Document.getElementById("Company").value.trim();
+                    const attendance = document.getElementById("attendance").value;
+
+                    let valid = true;
+                    //Name
+                    if(name.length<6 || name.length >100)
+                    {
+                        nameError.style.display ="block";
+                        nameError.textContent="Name must be between 6 and 100 charecters.";
+                        valid = false;
+                    }
+                    else{
+                        nameError.style.display ="none";
+                    }
+
+                    //email
+                    const emailRegex = /[\s@]+@[\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.text(email)){
+                        emailError.style.display="block";
+                        emailError.textContent= "Please enter a valid professional email address.";
+                        valid = false;
+                    }
+                    else{
+                        emailError.style.display= "none";
+                    }
+
+                    //Attendance
+                    if (attendance === "")
+                    {
+                        attendanceError.style.display = "block";
+                        attendanceError.textContent= "Please select your attendance type.";
+                        valid= false;
+                    }
+                    else{
+                        attendanceError.style.display="none";
+                    }
+                    if (!valid) return;
+
+                    attendance.push({name,email,xompany,attendance});
+                    alert("Registration Successfull");
+                    document.getElementById("regForm").reset();
+                    ubdateAnalytics();
+
+                }
+                function ubdateAnalytics()
+                {
+                    const total = attendance.length;
+                    const Virtual = attenders.filter(a =>a.attendance === "Virtual").length;
+                    const inperson = attenders.filter(a =>a.attendance === "InPerson").length;
+
+                    document.getElementById("totalCount").textContent=total;
+                    document.getElementById("virtualCount").textContent= Virtual;
+                    document.getElementById("inpersonCount").textContent= inperson;
+                }
+                function toggleAnalytics()
+                {
+                    const panel = document.getElementById("analytics");
+                    const btn =document.getElementById("toggleBtn");
+
+                    if(panel.style.display === "none")
+                {
+                    panel.style.display = "block";
+                    btn.textContent= "Hide event Analytics";
+                }
+                else{
+                    panel.style.display= "none";
+                    btn.textContent="Show Event Analytics"
+                }
+
+                }
+            </script>
+        </div>
+
+    </div>
+    
+</body>
+</html>
