@@ -62,15 +62,15 @@
 
         <form id="regForm">
             <label >Full Name (Required) </label>
-            <input type="text" id="FullName" />
-            <small id="nameError" style="color: rd; display: none;"></small>
+            <input type="text" id="fullName" />
+            <small id="nameError" style="color: red; display: none;"></small>
 
             <label>Professional Email (Required)</label>
-            <input type="text"  id="Email"/>
+            <input type="text"  id="email"/>
             <small id="emailError" style="color: red; display: none;"></small>
 
             <label>Company/Institution (Optional) </label>
-            <input type="text"  id="Company">
+            <input type="text"  id="company">
 
             <label>Attendance Type (Required)</label>
             <select id="attendance">
@@ -92,16 +92,16 @@
             <p>In-Person Attendance: <span id="inpersonCount">0</span></p>
         </div>
 
-        <div>
+        </div>
             <script>
-                let attenders = [];
+                let attendees = [];
 
                 function submitForm()
                 {
-                    const Name=Document.getElementById("FullName").value.trim();
-                    const Email=Document.getElementById("Email").value.trim();
-                    const Company=Document.getElementById("Company").value.trim();
-                    const attendance = document.getElementById("attendance").value;
+                    const Name=document.getElementById("fullName").value.trim();
+                    const Email=document.getElementById("email").value.trim();
+                    const Company=document.getElementById("company").value.trim();
+                    const attendance=document.getElementById("attendance").value;
 
                     let valid = true;
                     //Name
@@ -138,7 +138,7 @@
                     }
                     if (!valid) return;
 
-                    attendance.push({name,email,xompany,attendance});
+                    attendance.push({name,email,company,attendance});
                     alert("Registration Successfull");
                     document.getElementById("regForm").reset();
                     ubdateAnalytics();
@@ -148,7 +148,7 @@
                 {
                     const total = attendance.length;
                     const Virtual = attenders.filter(a =>a.attendance === "Virtual").length;
-                    const inperson = attenders.filter(a =>a.attendance === "InPerson").length;
+                    const inperson = attenders.filter(a =>a.attendance === "In-Person").length;
 
                     document.getElementById("totalCount").textContent=total;
                     document.getElementById("virtualCount").textContent= Virtual;
@@ -171,9 +171,6 @@
 
                 }
             </script>
-        </div>
-
-    </div>
     
 </body>
 </html>
